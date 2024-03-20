@@ -4,4 +4,5 @@ export interface IUser {
   userName: string;
   owner: boolean;
   createdAt: string;
+  active: boolean;
 }

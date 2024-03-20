@@ -9,17 +9,18 @@ import { RoomsComponent } from './components/rooms/rooms.component';
 
 export const routes: Routes = [
   {
-    path: '',
+    path: 'users',
     component: UsersParentComponent,
   },
-  {path:"login", component:LoginComponent},
-  {path:"register", component:RegisterComponent},
-  {path:"dashboard",
-  component:DashboardComponent,
-children:[
-  {path:"", component:HomeComponent},
-  {path:"hotels", component:HotelsComponent},
-  {path:"rooms", component:RoomsComponent},
-]
-},
+  { path: 'login', component: LoginComponent },
+  { path: 'register', component: RegisterComponent },
+  {
+    path: 'dashboard',
+    component: DashboardComponent,
+    children: [
+      { path: '', component: HomeComponent },
+      { path: 'hotels', component: HotelsComponent },
+      { path: 'rooms', component: RoomsComponent },
+    ],
+  },
 ];

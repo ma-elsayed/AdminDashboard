@@ -43,9 +43,10 @@ export class UsersService {
     );
   }
 
-  updateUser(id: string): Observable<any> {
+  updateUser(id: string, newData: {}): Observable<any> {
     return this.httpClient.patch<any>(
       `http://localhost:3090/admin/users/${id}`,
+      newData,
       this.http
     );
   }
