@@ -1,4 +1,6 @@
-<div class="container">
+<app-header></app-header>
+<div class="container mt-5 pt-5 z-3">
+  <input type="search" />
   @if(users){
   <div class="table-responsive">
     <table class="table table-hover text-center">
@@ -9,8 +11,9 @@
         <tr>
           <th scope="col">ID no.</th>
           <th scope="col">Username</th>
-          <th scope="col">Owner</th>
+          <th scope="col">Active</th>
           <th scope="col">Created On</th>
+          <th scope="col"></th>
         </tr>
       </thead>
       <tbody>
@@ -20,11 +23,16 @@
             {{ $index }}
           </td>
           <td class="align-middle">{{ user.userName || user.email }}</td>
-          <td class="align-middle">{{ user.owner }}</td>
+          <td class="align-middle">{{ user.active }}</td>
           <td class="align-middle">{{ user.createdAt }}</td>
           <td class="align-middle">
-            <button class="btn btn-danger" (click)="deleteUser(user._id)">
-              Delete
+            <button
+              style="width: 100px"
+              class="btn"
+              [ngClass]="user.active ? 'btn-secondary' : 'btn btn-primary'"
+              (click)="toggleUserActive(user)"
+            >
+              {{ user.active ? "Deactivate" : "Activate" }}
             </button>
           </td>
         </tr>

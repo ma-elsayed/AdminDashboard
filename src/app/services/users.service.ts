@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { IUser } from '../models/iuser';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, map } from 'rxjs';
 
@@ -22,6 +21,14 @@ export class UsersService {
       `Bearer ${this.adminToken}`
     );
   }
+
+  registerUser(userData: any) {
+    return this.httpClient.post<any>(
+      'http://localhost:3090/admin/register',
+      userData
+    );
+  }
+
   getUsers(): Observable<any> {
     return this.httpClient.get<any>(
       'http://localhost:3090/admin/users',
@@ -32,6 +39,14 @@ export class UsersService {
   deleteUser(id: string): Observable<any> {
     return this.httpClient.delete<any>(
       `http://localhost:3090/admin/users/${id}`,
+      this.http
+    );
+  }
+
+  updateUser(id: string, newData: {}): Observable<any> {
+    return this.httpClient.patch<any>(
+      `http://localhost:3090/admin/users/${id}`,
+      newData,
       this.http
     );
   }
