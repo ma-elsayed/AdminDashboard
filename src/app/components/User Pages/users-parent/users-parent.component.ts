@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { IUser } from '../../models/iuser';
-import { UsersService } from '../../services/users.service';
-import { HeaderComponent } from '../header/header.component';
+import { IUser } from '../../../models/iuser';
+import { UsersService } from '../../../services/users.service';
+import { HeaderComponent } from '../../header/header.component';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
@@ -54,9 +54,9 @@ export class UsersParentComponent implements OnInit, OnDestroy {
     });
   }
   ngOnInit(): void {
-    const adminToken =
-      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoidGVzdHJvbGUiLCJpZCI6IjY1ZjkyNzk2NzdkYzM5MzEzYmVhMGY1MyIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTcxMDkzNDI0OSwiZXhwIjoxNzEwOTQ4NjQ5fQ.Tq7dv4WattsRm_L42PG9M-RjplU9eby2gCmbVPC2yro';
-    this.UserService.setAdminToken(adminToken);
+    // const adminToken =
+    //   'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoidGVzdHJvbGUiLCJpZCI6IjY1ZjkyNzk2NzdkYzM5MzEzYmVhMGY1MyIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTcxMDkzNDI0OSwiZXhwIjoxNzEwOTQ4NjQ5fQ.Tq7dv4WattsRm_L42PG9M-RjplU9eby2gCmbVPC2yro';
+    // this.UserService.setAdminToken(adminToken);
     this.usersRequest = this.UserService.getUsers().subscribe((users) => {
       this.users = users.data;
       this.filteredUsers = this.users;

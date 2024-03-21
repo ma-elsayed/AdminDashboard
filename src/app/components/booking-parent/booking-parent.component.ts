@@ -21,9 +21,9 @@ export class BookingParentComponent implements OnInit, OnDestroy {
     this.bookingsRequest = this.BookingService.getBookings().subscribe(
       (bookings) => (this.bookings = bookings.data)
     );
-    console.log(this.bookings);
+    // console.log(this.bookings);
   }
   ngOnDestroy(): void {
-    // throw new Error('Method not implemented.');
+    this.bookingsRequest.unsubscribe();
   }
 }

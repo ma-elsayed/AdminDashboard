@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, map } from 'rxjs';
+import { environment } from '../../environments/environment.development';
 
 @Injectable()
 export class UsersService {
@@ -10,42 +11,43 @@ export class UsersService {
     this.http = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
+        Authorization: `Bearer ${environment.adminToken}`,
       }),
     };
   }
 
-  setAdminToken(token: string) {
-    this.adminToken = token;
-    this.http.headers = this.http.headers.set(
-      'Authorization',
-      `Bearer ${this.adminToken}`
-    );
-  }
+  // setAdminToken(token: string) {
+  //   this.adminToken = token;
+  //   this.http.headers = this.http.headers.set(
+  //     'Authorization',
+  //     `Bearer ${this.adminToken}`
+  //   );
+  // }
 
   registerUser(userData: any) {
     return this.httpClient.post<any>(
-      'http://localhost:3090/admin/register',
+      `${environment.baseURL}/admin/register`,
       userData
     );
   }
 
   getUsers(): Observable<any> {
     return this.httpClient.get<any>(
-      'http://localhost:3090/admin/users',
+      `${environment.baseURL}/admin/users`,
       this.http
     );
   }
 
   deleteUser(id: string): Observable<any> {
     return this.httpClient.delete<any>(
-      `http://localhost:3090/admin/users/${id}`,
+      `${environment.baseURL}/admin/users/${id}`,
       this.http
     );
   }
 
   updateUser(id: string, newData: {}): Observable<any> {
     return this.httpClient.patch<any>(
-      `http://localhost:3090/admin/users/${id}`,
+      `${environment.baseURL}/admin/users/${id}`,
       newData,
       this.http
     );

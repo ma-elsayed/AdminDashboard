@@ -1,5 +1,5 @@
 import { Routes } from '@angular/router';
-import { UsersParentComponent } from './components/users-parent/users-parent.component';
+import { UsersParentComponent } from './components/User Pages/users-parent/users-parent.component';
 import { LoginComponent } from './components/login/login.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { RegisterComponent } from './components/register/register.component';
