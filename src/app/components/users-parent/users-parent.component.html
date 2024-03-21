@@ -1,10 +1,15 @@
 <app-header></app-header>
 <div class="container mt-5 pt-5 z-3">
-  <input type="search" />
   @if(users){
-  <div class="table-responsive">
+  <div class="table-responsive position-relative">
+    <input
+      class="w-50 position-absolute end-0"
+      type="text"
+      [(ngModel)]="searchValue"
+      (input)="searchUser(searchValue)"
+    />
     <table class="table table-hover text-center">
-      <caption>
+      <caption class="caption-top">
         List of users
       </caption>
       <thead>
@@ -17,7 +22,7 @@
         </tr>
       </thead>
       <tbody>
-        @for(user of users;track $index) {
+        @for(user of filteredUsers;track $index) {
         <tr>
           <td class="align-middle" scope="row">
             {{ $index }}
