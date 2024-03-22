@@ -1,9 +1,68 @@
-
 <app-header> </app-header>
 
+<main class="d-flex">
+  <div class="">
+    <div class="d-flex flex-column flex-shrink-0 sidebar-wrap">
+      <a href="/" class="text-decoration-none logo-wrap">
+        <div class="icon-wrap"><i class="fab fa-slack"></i></div>
+        <span>Admin</span>
+      </a>
+      <hr />
+      <ul class="nav nav-pills flex-column mb-auto">
+        <li class="nav-item">
+          <a href="" class="nav-link active" aria-current="page">
+            <div class="icon-wrap">
+              <i class="fas fa-home"></i>
+            </div>
+            <span> Home</span>
+          </a>
+        </li>
+        <li>
+          <a href="#" class="nav-link" routerLink="/dashboard">
+            <div class="icon-wrap">
+              <i class="fas fa-tachometer-alt"></i>
+            </div>
+            <span>Dashboard</span>
+          </a>
+        </li>
+        <li>
+          <a href="#" class="nav-link" routerLink="/dashboard/hotels">
+            <div class="icon-wrap">
+              <i class="fab fa-product-hunt"></i>
+            </div>
+            <span>Hotels</span>
+          </a>
+        </li>
+        <li>
+          <a href="#" class="nav-link" routerLink="/dashboard/rooms">
+            <div class="icon-wrap">
+              <i class="fab fa-intercom"></i>
+            </div>
 
-<router-outlet></router-outlet>
-
-
-
-
+            <span>Rooms</span>
+          </a>
+        </li>
+        <li>
+          <a href="users" class="nav-link">
+            <div class="icon-wrap">
+              <i class="fab fa-first-order"></i>
+            </div>
+            <span>Users</span>
+          </a>
+        </li>
+        <li>
+          <a href="bookings" class="nav-link">
+            <div class="icon-wrap">
+              <i class="fab fa-first-order"></i>
+            </div>
+            <span>Bookings</span>
+          </a>
+        </li>
+      </ul>
+      <hr />
+    </div>
+  </div>
+  <div class="w-100">
+    <router-outlet></router-outlet>
+  </div>
+</main>
