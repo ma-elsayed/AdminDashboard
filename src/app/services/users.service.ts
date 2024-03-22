@@ -31,6 +31,13 @@ export class UsersService {
     );
   }
 
+  getUser(userId: string): Observable<any> {
+    return this.httpClient.get<any>(
+      `${environment.baseURL}/admin/users/${userId}`,
+      this.http
+    );
+  }
+
   getUsers(): Observable<any> {
     return this.httpClient.get<any>(
       `${environment.baseURL}/admin/users`,
@@ -49,6 +56,13 @@ export class UsersService {
     return this.httpClient.patch<any>(
       `${environment.baseURL}/admin/users/${id}`,
       newData,
+      this.http
+    );
+  }
+
+  getBookingForUser(userId: string): Observable<any> {
+    return this.httpClient.get<any>(
+      `${environment.baseURL}/admin/bookings/user/${userId}`,
       this.http
     );
   }

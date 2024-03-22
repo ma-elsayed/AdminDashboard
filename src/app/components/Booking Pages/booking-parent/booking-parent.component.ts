@@ -1,9 +1,9 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { HeaderComponent } from '../header/header.component';
+import { HeaderComponent } from '../../header/header.component';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { BookingServiceService } from '../../services/booking-service.service';
-import { IBooking } from '../../models/ibooking';
+import { BookingServiceService } from '../../../services/booking-service.service';
+import { IBooking } from '../../../models/ibooking';
 
 @Component({
   selector: 'app-booking-parent',
@@ -19,7 +19,10 @@ export class BookingParentComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.bookingsRequest = this.BookingService.getBookings().subscribe(
-      (bookings) => (this.bookings = bookings.data)
+      (bookings) => {
+        this.bookings = bookings.data;
+        console.log(this.bookings);
+      }
     );
     // console.log(this.bookings);
   }

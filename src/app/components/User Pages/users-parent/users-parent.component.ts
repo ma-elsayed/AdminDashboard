@@ -4,6 +4,7 @@ import { UsersService } from '../../../services/users.service';
 import { HeaderComponent } from '../../header/header.component';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-users-parent',
@@ -17,7 +18,7 @@ export class UsersParentComponent implements OnInit, OnDestroy {
   searchValue: string = '';
   users: IUser[] | undefined;
   usersRequest: any;
-  constructor(private UserService: UsersService) {}
+  constructor(private UserService: UsersService, public router: Router) {}
 
   searchUser(searchValue: string) {
     if (searchValue) {
@@ -32,7 +33,8 @@ export class UsersParentComponent implements OnInit, OnDestroy {
     }
   }
 
-  toggleUserActive(user: IUser) {
+  toggleUserActive(user: IUser, event: MouseEvent) {
+    event.stopPropagation();
     this.UserService.updateUser(user._id, { active: !user.active }).subscribe({
       next: (res) => {
         if (user.active === true) {
@@ -53,6 +55,11 @@ export class UsersParentComponent implements OnInit, OnDestroy {
       },
     });
   }
+
+  userDetails(user: IUser) {
+    this.router.navigate(['user/' + user._id]);
+  }
+
   ngOnInit(): void {
     // const adminToken =
     //   'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoidGVzdHJvbGUiLCJpZCI6IjY1ZjkyNzk2NzdkYzM5MzEzYmVhMGY1MyIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTcxMDkzNDI0OSwiZXhwIjoxNzEwOTQ4NjQ5fQ.Tq7dv4WattsRm_L42PG9M-RjplU9eby2gCmbVPC2yro';

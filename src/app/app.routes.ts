@@ -6,7 +6,8 @@ import { RegisterComponent } from './components/register/register.component';
 import { HomeComponent } from './components/home/home.component';
 import { HotelsComponent } from './components/hotels/hotels.component';
 import { RoomsComponent } from './components/rooms/rooms.component';
-import { BookingParentComponent } from './components/booking-parent/booking-parent.component';
+import { BookingParentComponent } from './components/Booking Pages/booking-parent/booking-parent.component';
+import { UserDetailsComponent } from './components/User Pages/user-details/user-details.component';
 
 export const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -22,6 +23,7 @@ export const routes: Routes = [
         path: 'users',
         component: UsersParentComponent,
       },
+      { path: 'user/:id', component: UserDetailsComponent },
       {
         path: 'bookings',
         component: BookingParentComponent,

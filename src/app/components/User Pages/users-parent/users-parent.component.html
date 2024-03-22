@@ -1,4 +1,3 @@
-<app-header></app-header>
 <div class="container mt-5 pt-5 z-3">
   @if(users){
   <div class="table-responsive position-relative">
@@ -23,7 +22,7 @@
       </thead>
       <tbody>
         @for(user of filteredUsers;track $index) {
-        <tr>
+        <tr (click)="userDetails(user)">
           <td class="align-middle" scope="row">
             {{ $index }}
           </td>
@@ -35,7 +34,7 @@
               style="width: 100px"
               class="btn"
               [ngClass]="user.active ? 'btn-secondary' : 'btn btn-primary'"
-              (click)="toggleUserActive(user)"
+              (click)="toggleUserActive(user, $event)"
             >
               {{ user.active ? "Deactivate" : "Activate" }}
             </button>
