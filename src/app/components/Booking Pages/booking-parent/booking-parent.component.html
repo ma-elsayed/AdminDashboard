@@ -10,10 +10,12 @@
         <tr>
           <th scope="col">Booking ID</th>
           <th scope="col">User</th>
+          <th scope="col">Hotel Name</th>
           <th scope="col">Room Type</th>
           <th scope="col">Guests</th>
           <th scope="col">Check In</th>
           <th scope="col">Check Out</th>
+          <th scope="col">Price</th>
         </tr>
       </thead>
       <tbody>
@@ -23,10 +25,22 @@
           <td class="align-middle">
             {{ booking.user.userName || booking.user.email }}
           </td>
-          <td class="align-middle">{{ booking.room.roomType }}</td>
+          <td class="align-middle">
+            {{ booking.room[0].hotelId.hotelName }}
+          </td>
+          <td class="align-middle">
+            <ul>
+              @for(hotel of booking.room ; track $index){
+              <li>{{ hotel.roomType }}</li>
+              }
+            </ul>
+          </td>
           <td class="align-middle">{{ booking.guests }}</td>
           <td class="align-middle">{{ booking.checkIn }}</td>
           <td class="align-middle">{{ booking.checkOut }}</td>
+          <td class="align-middle">
+            {{ booking.totalPrice | currency : "USD" : "symbol" : ".0" }}
+          </td>
         </tr>
         }
       </tbody>
