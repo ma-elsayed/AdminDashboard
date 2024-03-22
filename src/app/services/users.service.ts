@@ -5,13 +5,13 @@ import { environment } from '../../environments/environment.development';
 
 @Injectable()
 export class UsersService {
-  private adminToken: string | undefined;
+  private adminToken: string | null = localStorage.getItem('token');
   private http: any;
   constructor(private httpClient: HttpClient) {
     this.http = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${environment.adminToken}`,
+        Authorization: `Bearer ${this.adminToken}`,
       }),
     };
   }

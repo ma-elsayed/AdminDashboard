@@ -8,6 +8,7 @@ import { HotelsComponent } from './components/hotels/hotels.component';
 import { RoomsComponent } from './components/rooms/rooms.component';
 import { BookingParentComponent } from './components/Booking Pages/booking-parent/booking-parent.component';
 import { UserDetailsComponent } from './components/User Pages/user-details/user-details.component';
+import { adminAuthGuard } from './guards/admin-auth.guard';
 
 export const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -15,6 +16,7 @@ export const routes: Routes = [
   {
     path: '',
     component: DashboardComponent,
+    canActivate: [adminAuthGuard],
     children: [
       { path: '', component: HomeComponent },
       { path: 'hotels', component: HotelsComponent },

@@ -100,8 +100,8 @@
   >
     <a class="navbar-brand" href="#">Booking.com</a>
     <section class="w-25 d-flex justify-content-end align-items-center">
-      <h5 class="m-0 me-2">Hello</h5>
-      <button class="btn">Log Out</button>
+      <h5 class="m-0 me-2">{{ adminUserName }}</h5>
+      <button class="btn btn-secondary" (click)="logOut()">Log Out</button>
       <!-- <div class="card border-transparent m-0">
         <div class="row flex-column flex-lg-row g-0 align-items-center">
           <div class="col">
