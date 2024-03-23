@@ -1,0 +1,48 @@
+<div class="container mt-5">
+  @if(users){
+  <div class="table-responsive position-relative">
+    <input
+      class="w-50 position-absolute end-0"
+      type="text"
+      [(ngModel)]="searchValue"
+      (input)="searchUser(searchValue)"
+    />
+    <table class="table table-hover text-center">
+      <caption class="caption-top">
+        List of users
+      </caption>
+      <thead>
+        <tr>
+          <th scope="col">ID no.</th>
+          <th scope="col">Username</th>
+          <th scope="col">Active</th>
+          <th scope="col">Created On</th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        @for(user of filteredUsers;track $index) {
+        <tr (click)="userDetails(user)">
+          <td class="align-middle" scope="row">
+            {{ $index }}
+          </td>
+          <td class="align-middle">{{ user.userName || user.email }}</td>
+          <td class="align-middle">{{ user.active }}</td>
+          <td class="align-middle">{{ user.createdAt }}</td>
+          <td class="align-middle">
+            <button
+              style="width: 100px"
+              class="btn"
+              [ngClass]="user.active ? 'btn-secondary' : 'btn btn-primary'"
+              (click)="toggleUserActive(user, $event)"
+            >
+              {{ user.active ? "Deactivate" : "Activate" }}
+            </button>
+          </td>
+        </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+  }
+</div>

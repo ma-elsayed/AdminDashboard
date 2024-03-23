@@ -1,72 +1,119 @@
-<header class="fixed-top">
+<!-- <header class="fixed-top z-n1">
   <nav class="navbar navbar-expand-lg navbar-light bg-dark sticky-top">
     <div class="container-fluid">
-
       <div class="collapse navbar-collapse ml-5" id="navbarSupportedContent ">
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0" style="margin-left: 200px;color: snow;">
-          <li class="nav-item" >
-            <a class="nav-link active ms-5  " style="color: snow;font-size: 20px;font-weight: 700;" aria-current="page" href="#">Booking Dashboard</a>
+        <ul
+          class="navbar-nav me-auto mb-2 mb-lg-0"
+          style="margin-left: 200px; color: snow"
+        >
+          <li class="nav-item">
+            <a
+              class="nav-link active ms-5"
+              style="color: snow; font-size: 20px; font-weight: 700"
+              aria-current="page"
+              href="#"
+              >Booking Dashboard</a
+            >
           </li>
-
-
-
         </ul>
         <form class="d-flex me-5">
-          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-          <button class="btn btn-outline" style="background-color: #FF9BD2;" type="submit">Search</button>
+          <input
+            class="form-control me-2"
+            type="search"
+            placeholder="Search"
+            aria-label="Search"
+          />
+          <button
+            class="btn btn-outline"
+            style="background-color: #ff9bd2"
+            type="submit"
+          >
+            Search
+          </button>
         </form>
       </div>
     </div>
   </nav>
-  <div class="d-flex flex-column flex-shrink-0 sidebar-wrap ">
-      <a href="/" class="text-decoration-none logo-wrap">
-          <div class="icon-wrap"><i class="fab fa-slack"></i></div> <span>Admin</span>
-      </a>
-      <hr>
-      <ul class="nav nav-pills flex-column mb-auto">
-          <li class="nav-item">
-              <a href="#" class="nav-link active" aria-current="page">
-                  <div class="icon-wrap">
-                      <i class="fas fa-home"></i>
-                  </div>
-                  <span> Home</span>
-              </a>
-          </li>
-          <li>
-              <a href="#" class="nav-link" routerLink="/dashboard">
-                  <div class="icon-wrap">
-                      <i class="fas fa-tachometer-alt"></i>
-                  </div>
-                  <span>Dashboard</span>
-              </a>
-          </li>
-          <li>
-            <a href="#" class="nav-link" routerLink="/dashboard/hotels">
-              <div class="icon-wrap">
-                <i class="fab fa-product-hunt"></i>
-              </div>
-              <span>Hotels </span>
-            </a>
-          </li>
-          <li>
-            <a href="#" class="nav-link" routerLink="/dashboard/rooms">
-              <div class="icon-wrap">
-                <i class="fab fa-intercom"></i>
-              </div>
+  <div class="d-flex flex-column flex-shrink-0 sidebar-wrap">
+    <a href="/" class="text-decoration-none logo-wrap">
+      <div class="icon-wrap"><i class="fab fa-slack"></i></div>
+      <span>Admin</span>
+    </a>
+    <hr />
+    <ul class="nav nav-pills flex-column mb-auto">
+      <li class="nav-item">
+        <a href="" class="nav-link active" aria-current="page">
+          <div class="icon-wrap">
+            <i class="fas fa-home"></i>
+          </div>
+          <span> Home</span>
+        </a>
+      </li>
+      <li>
+        <a href="#" class="nav-link" routerLink="/dashboard">
+          <div class="icon-wrap">
+            <i class="fas fa-tachometer-alt"></i>
+          </div>
+          <span>Dashboard</span>
+        </a>
+      </li>
+      <li>
+        <a href="#" class="nav-link" routerLink="/dashboard/hotels">
+          <div class="icon-wrap">
+            <i class="fab fa-product-hunt"></i>
+          </div>
+          <span>Hotels</span>
+        </a>
+      </li>
+      <li>
+        <a href="#" class="nav-link" routerLink="/dashboard/rooms">
+          <div class="icon-wrap">
+            <i class="fab fa-intercom"></i>
+          </div>
 
-              <span>Rooms</span>
-            </a>
-          </li>
-          <li>
-              <a href="#" class="nav-link">
-                  <div class="icon-wrap">
-                      <i class="fab fa-first-order"></i>
-                  </div>
-                  <span>Users</span>
-              </a>
-          </li>
-      </ul>
-      <hr>
-
+          <span>Rooms</span>
+        </a>
+      </li>
+      <li>
+        <a href="users" class="nav-link">
+          <div class="icon-wrap">
+            <i class="fab fa-first-order"></i>
+          </div>
+          <span>Users</span>
+        </a>
+      </li>
+      <li>
+        <a href="bookings" class="nav-link">
+          <div class="icon-wrap">
+            <i class="fab fa-first-order"></i>
+          </div>
+          <span>Bookings</span>
+        </a>
+      </li>
+    </ul>
+    <hr />
   </div>
+</header> -->
+<header class="bg-dark" data-bs-theme="dark">
+  <nav
+    class="container navbar py-3 d-flex justify-content-between align-items-center"
+  >
+    <a class="navbar-brand" href="#">Booking.com</a>
+    <section class="w-25 d-flex justify-content-end align-items-center">
+      <h5 class="m-0 me-2">{{ adminUserName }}</h5>
+      <button class="btn btn-secondary" (click)="logOut()">Log Out</button>
+      <!-- <div class="card border-transparent m-0">
+        <div class="row flex-column flex-lg-row g-0 align-items-center">
+          <div class="col">
+            <div class="card-body">
+              <h5 class="card-title">Card title</h5>
+              <div class="card-text">
+                <button class="btn btn-secondary px-2 py-1">Log Out</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div> -->
+    </section>
+  </nav>
 </header>

@@ -1,3 +1,4 @@
+
 <section class="vh-100" style="background-color: #0a162c;">
   <div class="container py-5 h-100">
     <div class="row d-flex justify-content-center align-items-center h-100">
@@ -29,5 +30,13 @@
   </div>
 </section>
 
-
-
+<input type="text" name="email" [(ngModel)]="userName" placeholder="email" />
+<input
+  type="password"
+  name="password"
+  [(ngModel)]="password"
+  placeholder="password"
+/>
+<button type="submit" class="btn btn-primary" (click)="submit($event)">
+  Log In
+</button>
