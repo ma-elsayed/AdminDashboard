@@ -9,10 +9,10 @@ import { RoomsComponent } from './components/rooms/rooms.component';
 import { BookingParentComponent } from './components/Booking Pages/booking-parent/booking-parent.component';
 import { UserDetailsComponent } from './components/User Pages/user-details/user-details.component';
 import { adminAuthGuard } from './guards/admin-auth.guard';
+import { adminLoggedGuard } from './guards/admin-logged.guard';
 
 export const routes: Routes = [
-  { path: 'login', component: LoginComponent },
-  { path: 'register', component: RegisterComponent },
+  { path: 'login', component: LoginComponent, canActivate: [adminLoggedGuard] },
   {
     path: '',
     component: DashboardComponent,
