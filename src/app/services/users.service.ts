@@ -1,12 +1,15 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpEvent, HttpHeaders } from '@angular/common/http';
 import { Observable, map } from 'rxjs';
 import { environment } from '../../environments/environment.development';
+import { IResponse } from '../models/iresponse';
+import { IUser } from '../models/iuser';
 
 @Injectable()
 export class UsersService {
   private adminToken: string | null = localStorage.getItem('token');
-  private http: any;
+  private http: { headers: HttpHeaders };
+
   constructor(private httpClient: HttpClient) {
     this.http = {
       headers: new HttpHeaders({
@@ -15,15 +18,6 @@ export class UsersService {
       }),
     };
   }
-
-  // setAdminToken(token: string) {
-  //   this.adminToken = token;
-  //   this.http.headers = this.http.headers.set(
-  //     'Authorization',
-  //     `Bearer ${this.adminToken}`
-  //   );
-  // }
-
   registerUser(userData: any) {
     return this.httpClient.post<any>(
       `${environment.baseURL}/admin/register`,
@@ -38,10 +32,10 @@ export class UsersService {
     );
   }
 
-  getUsers(): Observable<any> {
-    return this.httpClient.get<any>(
+  getUsers(): Observable<IResponse<IUser>> {
+    return this.httpClient.get<IResponse<IUser>>(
       `${environment.baseURL}/admin/users`,
-      this.http
+      { headers: this.http.headers }
     );
   }
 
