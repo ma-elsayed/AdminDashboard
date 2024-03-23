@@ -16,7 +16,7 @@ export class RoomsComponent implements OnInit {
   hotelObj: Hotel = new Hotel();
   hotelList: Hotel[] = [];
 
-  
+
   ngOnInit(): void {
     const localData = localStorage.getItem("angular17crud");
     if(localData != null) {
