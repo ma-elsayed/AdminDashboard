@@ -1,86 +1,114 @@
 <div class="container mt-5">
-  <div class="d-lg-flex gap-5 w-full">
-    <div class="card w-lg-25">
-      <img src="https://placehold.co/600x400" class="card-img-top" alt="..." />
-      <div class="card-body">
-        <h5 class="card-title">
-          Username: @if (user?.userName){ {{ user?.userName }}} @else { Username
-          is not specified }
-        </h5>
-      </div>
-      <ul class="list-group list-group-flush">
-        <li class="card-text list-group-item">email: {{ user?.email }}</li>
-        <li class="card-text list-group-item">
-          User State: @if(user?.active){ User is active } @else { User is not
-          active }
-        </li>
-      </ul>
-      <div class="card-body">
-        <button
-          type="button"
-          class="btn btn-primary btn-lg"
-          (click)="user && toggleUserActive(user)"
-        >
-          click me
-        </button>
+  <div class="row g-5">
+    <div class="col-lg-3">
+      <div class="card">
+        <img
+          src="https://placehold.co/600x400"
+          class="card-img-top"
+          alt="..."
+        />
+        <div class="card-body">
+          <p class="mb-0">Username:</p>
+          <p class="mb-0">
+            @if (user?.userName){ {{ user?.userName }}} @else { Username is not
+            specified }
+          </p>
+        </div>
+        <ul class="list-group list-group-flush">
+          <li class="card-text list-group-item">
+            <p class="mb-0">email:</p>
+            <p class="mb-0">{{ user?.email }}</p>
+          </li>
+          <li class="card-text list-group-item">
+            <p class="mb-0">User State:</p>
+            <p class="mb-0">
+              @if(user?.active){ User Active } @else { User Inactive }
+            </p>
+          </li>
+        </ul>
+        <div class="card-body">
+          <span
+            role="button"
+            [ngClass]="[
+              'badge rounded-pill p-3 w-50 fs-6',
+              user?.active ? 'badge-secondary' : 'badge-success'
+            ]"
+            (click)="user && toggleUserActive(user)"
+          >
+            {{ user?.active ? "Deactivate" : "Activate" }}
+          </span>
+          <!-- <button
+            type="button"
+            class="btn btn-primary btn-lg"
+            (click)="user && toggleUserActive(user)"
+          >
+            click me
+          </button> -->
+        </div>
       </div>
     </div>
-    <div class="w-lg-75 table-responsive">
-      @if (userHasBookings){
-      <table class="table table-hover text-center">
-        <caption class="caption-top">
-          List of User Bookings
-        </caption>
-        <thead>
-          <tr>
-            <th scope="col" class="align-middle">Booking ID</th>
-            <th scope="col" class="align-middle">User</th>
-            <th scope="col" class="align-middle">Hotel Name</th>
-            <th scope="col" class="align-middle">Room Type</th>
-            <th scope="col" class="align-middle">Guests</th>
-            <th scope="col" class="align-middle">Check In</th>
-            <th scope="col" class="align-middle">Check Out</th>
-            <th scope="col" class="align-middle">Price</th>
-          </tr>
-        </thead>
-        <tbody>
-          @for(booking of bookingsPerUser;track $index){
-          <tr>
-            <td scope="row" class="align-middle">{{ $index + 1 }}</td>
-            <td scope="row" class="align-middle">
-              {{ booking.user.userName || booking.user.email }}
-            </td>
-            <td scope="row" class="align-middle">
-              {{ booking.room[0].hotelId.hotelName }}
-            </td>
-            <td class="align-middle">
-              <ul>
-                @for(room of booking.room ; track $index){
-                <li>{{ room.roomType }}</li>
-                }
-              </ul>
-            </td>
-            <td scope="row" class="align-middle">
-              {{ booking.guests }}
-            </td>
-            <td scope="row" class="align-middle">
-              {{ booking.checkIn }}
-            </td>
-            <td scope="row" class="align-middle">
-              {{ booking.checkOut }}
-            </td>
-            <td scope="row" class="align-middle">
-              {{ booking.totalPrice | currency : "USD" : "symbol" : ".0" }}
-            </td>
-          </tr>
-          }
-        </tbody>
-      </table>
-      } @else {
-      <div class="text-center">
-        <h3>No Bookings Found</h3>
+    <div class="col-lg-9">
+      <div class="table-responsive">
+        @if (userHasBookings){
+        <table class="table table-hover text-center mt-1 border rounded">
+          <caption class="caption-top">
+            List of User Bookings
+          </caption>
+          <thead class="table-light">
+            <tr class="table-active">
+              <th scope="col" class="align-middle">Booking ID</th>
+              <th scope="col" class="align-middle">
+                <p class="m-0 ps-2 text-start">User</p>
+              </th>
+              <th scope="col" class="align-middle">Hotel Name</th>
+              <th scope="col" class="align-middle">Room Type</th>
+              <th scope="col" class="align-middle">Guests</th>
+              <th scope="col" class="align-middle">Check In</th>
+              <th scope="col" class="align-middle">Check Out</th>
+              <th scope="col" class="align-middle">Price</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for(booking of bookingsPerUser;track $index){
+            <tr>
+              <td scope="row" class="align-middle">{{ $index + 1 }}</td>
+              <td scope="row" class="align-middle">
+                <p class="d-flex justify-content-start m-0 ps-2">
+                  {{ booking.user.userName || booking.user.email }}
+                </p>
+              </td>
+              <td scope="row" class="align-middle">
+                {{ booking.room[0].hotelId.hotelName }}
+              </td>
+              <td class="align-middle">
+                <ul>
+                  @for(room of booking.room ; track $index){
+                  <li>{{ room.roomType }}</li>
+                  }
+                </ul>
+              </td>
+              <td scope="row" class="align-middle">
+                {{ booking.guests }}
+              </td>
+              <td scope="row" class="align-middle">
+                {{ booking.checkIn }}
+              </td>
+              <td scope="row" class="align-middle">
+                {{ booking.checkOut }}
+              </td>
+              <td scope="row" class="align-middle">
+                {{ booking.totalPrice | currency : "USD" : "symbol" : ".0" }}
+              </td>
+            </tr>
+            }
+          </tbody>
+        </table>
+        } @else {
+        <div class="text-center">
+          <h3>No Bookings Found</h3>
+        </div>
+        }
       </div>
-      }
     </div>
   </div>
 </div>

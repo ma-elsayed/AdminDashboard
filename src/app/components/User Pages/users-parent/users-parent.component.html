@@ -1,43 +1,61 @@
-<div class="container mt-5">
+<div class="container-fluid mt-5">
   @if(users){
   <div class="table-responsive position-relative">
-    <input
-      class="w-50 position-absolute end-0"
-      type="text"
-      [(ngModel)]="searchValue"
-      (input)="searchUser(searchValue)"
-    />
-    <table class="table table-hover text-center">
+    <div class="w-25 position-absolute end-0 text-end">
+      <input
+        class="focus-ring focus-ring-light rounded p-1 form-control"
+        type="text"
+        [(ngModel)]="searchValue"
+        (input)="searchUser(searchValue)"
+        placeholder="Search for users..."
+      />
+    </div>
+    <table class="table table-hover text-center mt-1 border rounded">
       <caption class="caption-top">
         List of users
       </caption>
-      <thead>
-        <tr>
-          <th scope="col">ID no.</th>
-          <th scope="col">Username</th>
-          <th scope="col">Active</th>
-          <th scope="col">Created On</th>
-          <th scope="col"></th>
+      <thead class="table-light">
+        <tr class="table-active">
+          <th scope="col" class="align-top">ID no.</th>
+          <th scope="col" class="align-top">
+            <p class="tex t-start m-0 ps-5">Username</p>
+          </th>
+          <th scope="col" class="align-top">Active</th>
+          <th scope="col" class="align-top">Created On</th>
+          <th scope="col" class="align-top">Switch User state</th>
         </tr>
       </thead>
       <tbody>
         @for(user of filteredUsers;track $index) {
-        <tr (click)="userDetails(user)">
+        <tr>
           <td class="align-middle" scope="row">
             {{ $index }}
           </td>
-          <td class="align-middle">{{ user.userName || user.email }}</td>
-          <td class="align-middle">{{ user.active }}</td>
-          <td class="align-middle">{{ user.createdAt }}</td>
+          <td class="align-middle" role="button" (click)="userDetails(user)">
+            <p class="d-flex justify-content-start m-0 ps-5">
+              {{ user.userName || user.email }}
+            </p>
+          </td>
+          <td class="align-middle" style="max-width: 10%">
+            <span
+              [ngClass]="[
+                'badge rounded-pill py-2 px-3 w-100',
+                user.active ? 'badge-success' : 'badge-secondary'
+              ]"
+            >
+              @if(user.active){ Active } @else { InActive }
+            </span>
+          </td>
+          <td class="align-middle">{{ user.createdAt | date }}</td>
           <td class="align-middle">
-            <button
-              style="width: 100px"
-              class="btn"
-              [ngClass]="user.active ? 'btn-secondary' : 'btn btn-primary'"
+            <span
+              role="button"
+              class="badge rounded-pill py-2 px-3 w-lg-50"
+              [ngClass]="user.active ? 'badge-secondary' : 'badge-success'"
               (click)="toggleUserActive(user, $event)"
             >
               {{ user.active ? "Deactivate" : "Activate" }}
-            </button>
+            </span>
           </td>
         </tr>
         }
