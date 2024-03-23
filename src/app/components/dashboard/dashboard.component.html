@@ -1,8 +1,11 @@
 <app-header> </app-header>
 
 <main class="d-flex">
-  <div class="">
-    <div class="d-flex flex-column flex-shrink-0 sidebar-wrap">
+  <div style="min-height: 100vh">
+    <div
+      style="height: 100%"
+      class="d-flex flex-column flex-shrink-0 sidebar-wrap"
+    >
       <a href="/" class="text-decoration-none logo-wrap">
         <div class="icon-wrap"><i class="fab fa-slack"></i></div>
         <span>Admin</span>
@@ -62,7 +65,7 @@
       <hr />
     </div>
   </div>
-  <div class="w-100">
+  <div class="flex-grow-1 overflow-hidden">
     <router-outlet></router-outlet>
   </div>
 </main>
