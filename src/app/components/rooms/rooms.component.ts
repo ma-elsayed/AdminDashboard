@@ -1,27 +1,46 @@
-import { CommonModule } from '@angular/common';
-import { Component, ElementRef, ViewChild, OnInit } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { IRoom, Room } from './../../models/room';
+import { Component, OnInit } from '@angular/core';
+// import { Room } from '../../models/room';
+import { RoomService } from '../../services/room.service';
 import { RouterOutlet } from '@angular/router';
-
+import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
+import { Hotel } from '../../models/hotel';
 
 @Component({
   selector: 'app-rooms',
   standalone: true,
   imports: [RouterOutlet, FormsModule,CommonModule],
   templateUrl: './rooms.component.html',
-  styleUrl: './rooms.component.scss'
+  styleUrls: ['./rooms.component.scss']
 })
 export class RoomsComponent implements OnInit {
-  @ViewChild('myModal') model: ElementRef | undefined;
-  hotelObj: Hotel = new Hotel();
-  hotelList: Hotel[] = [];
+  hotelId: string = '65f05c34495b34feb7746a2a';
+  hotelList: Room[]  = [];
+  newRoom: IRoom = { hotelId: { _id: '' },  hotelName: '', roomType: '', bedType: '', guestNumber: 0, price: 0  };
+  editingRoom: Room  = {} as Room;
+retrievedRoom:Room= {} as Room ;
+  constructor(private roomService: RoomService , public router: Router) { }
 
 
-  ngOnInit(): void {
-    const localData = localStorage.getItem("angular17crud");
-    if(localData != null) {
-      this.hotelList = JSON.parse(localData)
-    }
+  ngOnInit(){
+    this.loadHotels();
+  }
+
+  loadHotels(){
+    this.roomService.getAllRooms(this.hotelId).subscribe(
+          (response) => {
+            console.log(response)
+            this.hotelList = response.data;
+
+      //   this.hotelList = data.data;
+        // console.log(this.hotelList)
+      },
+      error => {
+        console.error('Error loading hotels:', error);
+      }
+    );
   }
 
   openModel() {
@@ -32,76 +51,75 @@ export class RoomsComponent implements OnInit {
     }
   }
 
-  closeModel() {
-    this.hotelObj = new Hotel();
-    if (this.model != null) {
-      this.model.nativeElement.style.display = 'none';
+  closeModel(): void {
+    const model = document.getElementById("myModal");
+    if (model != null) {
+      model.style.display = 'none';
+    }
+
+
+  }
+
+  onDelete(item: Room){
+    const isDelete = confirm('Are you sure you want to Delete?');
+    if (isDelete) {
+      this.roomService.deleteRoom(item._id).subscribe(
+        () => {
+          this.loadHotels()
+          // this.hotelList = this.hotelList.filter(hotel => hotel._id == item._id);
+        },
+        error => {
+          console.error('Error deleting hotel:', error);
+        }
+      );
     }
   }
 
-  onDelete(item: Hotel) {
-    const isDelet = confirm("Are you sure want to Delete");
-    if(isDelet) {
-      const currentRecord =  this.hotelList.findIndex(m=> m.id === this.hotelObj.id);
-      this.hotelList.splice(currentRecord,1);
-      localStorage.setItem('http://localhost:3090/hotels', JSON.stringify(this.hotelList));
-    }
-  }
-  onEdit(item: Hotel) {
-    this.hotelObj =  item;
+  onEdit(item: Room){
+    this.editingRoom = item;
     this.openModel();
   }
 
-  updateHotel() {
-      const currentRecord =  this.hotelList.find(m=> m.id === this.hotelObj.id);
-      if(currentRecord != undefined) {
-        currentRecord.hotelName = this.hotelObj.hotelName;
-        currentRecord.hotelCity =  this.hotelObj.hotelCity;
-        currentRecord.hotelMainImage =  this.hotelObj.hotelMainImage;
-      };
-      localStorage.setItem('http://localhost:3090/hotels', JSON.stringify(this.hotelList));
-      this.closeModel()
+
+  updateRoom(room: Room){
+    this.roomService.updateRoom(room._id, room).subscribe(
+      () => {
+        const index = this.hotelList.findIndex(m => m._id === this.retrievedRoom._id);
+        if (index !== -1) {
+          this.hotelList[index] = this.retrievedRoom;
+        }
+      },
+      error => {
+        console.error('Error updating hotel:', error);
+      }
+    );
+    this.closeModel();
   }
-  saveHotel() {
-    debugger;
-    const isLocalPresent = localStorage.getItem('http://localhost:3090/hotels');
-    if (isLocalPresent != null) {
 
-      const oldArray = JSON.parse(isLocalPresent);
-      this.hotelObj.id = oldArray.length + 1;
-      oldArray.push(this.hotelObj);
-      this.hotelList = oldArray;
-      localStorage.setItem('http://localhost:3090/hotels', JSON.stringify(oldArray));
-    } else {
-      const newArr = [];
-      newArr.push(this.hotelObj);
-      this.hotelObj.id = 1;
-      this.hotelList = newArr;
-      localStorage.setItem('http://localhost:3090/hotels', JSON.stringify(newArr));
-    }
-    this.closeModel()
+
+
+
+  saveRoom() {
+    console.log(this.newRoom)
+
+
+    this.roomService.saveRoom(this.hotelId, this.newRoom).subscribe(
+
+
+      data => {
+        this.loadHotels()
+        // this.hotelList.push(data);
+      },
+      error => {
+        console.error('Error saving hotel:', error);
+      }
+    );
+    this.closeModel();
   }
-}
 
 
-export class Hotel {
-  id: number;
-  hotelName: string;
-  hotelDescription: string;
-  hotelSubDescription: string;
-  hotelMainImage: string;
-  hotelCity: string;
 
-  constructor() {
-    this.id = 0;
-    this.hotelName = '';
-    this.hotelDescription = '';
-    this.hotelSubDescription = '';
-    this.hotelSubDescription = '';
-    this.hotelMainImage = '';
-    this.hotelCity = '';
-
-  }
 
 
 }
+
