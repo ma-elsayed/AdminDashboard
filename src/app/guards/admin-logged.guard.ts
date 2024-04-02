@@ -8,8 +8,8 @@ export const adminLoggedGuard: CanActivateFn = (route, state) => {
     null;
   if (adminToken) {
     router.navigate(['']);
-    return true;
-  } else {
     return false;
+  } else {
+    return true;
   }
 };
