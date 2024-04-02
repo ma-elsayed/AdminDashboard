@@ -31,8 +31,9 @@ export class LoginComponent {
     console.log(adminLogin);
     this.AdminService.adminLogin(adminLogin).subscribe({
       next: (res: any) => {
+        console.log(res);
         localStorage.setItem('token', res.token);
-        localStorage.setItem('username', res.userName);
+        localStorage.setItem('username', res.username);
         this.router.navigate(['']);
       },
       error: (error) => {
@@ -42,21 +43,3 @@ export class LoginComponent {
     });
   }
 }
-
-// submit(event: Event) {
-//   event.preventDefault();
-//   const formData = {
-//     userName: this.userName,
-//     password: this.password,
-//   };
-//   this.AdminService.adminLogin(this.loginForm).subscribe({
-//     next: (res: any) => {
-//       localStorage.setItem('token', res.token);
-//       localStorage.setItem('username', res.userName);
-//       this.router.navigate(['']);
-//     },
-//     error: (error) => {
-//       console.error('Login failed', error);
-//       alert('Login failed');
-//     },
-//   });
