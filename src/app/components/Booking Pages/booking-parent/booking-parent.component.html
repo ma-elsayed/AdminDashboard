@@ -43,8 +43,8 @@
             </ul>
           </td>
           <td class="align-middle">{{ booking.guests }}</td>
-          <td class="align-middle">{{ booking.checkIn }}</td>
-          <td class="align-middle">{{ booking.checkOut }}</td>
+          <td class="align-middle">{{ booking.checkIn | date }}</td>
+          <td class="align-middle">{{ booking.checkOut | date }}</td>
           <td class="align-middle">
             {{ booking.totalPrice | currency : "USD" : "symbol" : ".0" }}
           </td>
