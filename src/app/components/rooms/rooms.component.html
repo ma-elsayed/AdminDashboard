@@ -70,7 +70,7 @@
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h4 class="modal-title">Create New room</h4>
+          <h4 class="modal-title">Create New Room</h4>
           <button
             type="button"
             class="btn-close"
@@ -91,31 +91,11 @@
             </div>
 
             <div class="col-4">
-              <label for="">Guest Number</label>
-              <input
-                type="text"
-                [(ngModel)]="newRoom.guestNumber"
-                class="form-control"
-                placeholder="Number of Guests"
-              />
-            </div>
-
-            <div class="col-4">
               <label for="">Bed Type</label>
               <select [(ngModel)]="newRoom.bedType">
                 <option>Single Bed</option>
                 <option>Double Beds</option>
               </select>
-            </div>
-
-            <div class="col-4">
-              <label for="">Price</label>
-              <input
-                type="text"
-                [(ngModel)]="newRoom.price"
-                class="form-control"
-                placeholder="hotelName"
-              />
             </div>
 
             <div class="col-4">
@@ -125,6 +105,26 @@
                 <option>Double Room</option>
                 <option>Triple Room</option>
               </select>
+            </div>
+
+            <div class="col-4">
+              <label for="">Guest Number</label>
+              <input
+                type="text"
+                [(ngModel)]="newRoom.guestNumber"
+                class="form-control"
+                placeholder="Guest Number"
+              />
+            </div>
+
+            <div class="col-4">
+              <label for="">Price</label>
+              <input
+                type="text"
+                [(ngModel)]="newRoom.price"
+                class="form-control"
+                placeholder="Price"
+              />
             </div>
           </div>
         </div>
@@ -181,7 +181,7 @@
                 type="text"
                 [(ngModel)]="editingRoom.price"
                 class="form-control"
-                placeholder="hotelName"
+                placeholder="Price"
               />
             </div>
 
@@ -191,7 +191,7 @@
                 type="text"
                 [(ngModel)]="editingRoom.guestNumber"
                 class="form-control"
-                placeholder="hotelName"
+                placeholder="Guest Number"
               />
             </div>
           </div>
