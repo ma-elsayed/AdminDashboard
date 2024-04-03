@@ -1,34 +1,42 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Room ,IRoom } from '../models/room';
+import { INewRoom, IRooms } from '../models/room';
+import { IResponse } from './../models/iresponse';
+import { environment } from '../../environments/environment.development';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class RoomService {
-  private apiUrl = "http://localhost:3090/rooms"
-  ;
+  constructor(private http: HttpClient) {}
 
-  constructor(private http: HttpClient) { }
-
-  getAllRooms(hotelId: string): Observable<{message :string,data :Room[]}> {
-    const url = `${this.apiUrl}/${hotelId}`;
-    return this.http.get<{message :string,data :Room[]}>(url);
+  getAllRoomsNoId(): Observable<IResponse<IRooms>> {
+    return this.http.get<IResponse<IRooms>>(`${environment.baseURL}/rooms`);
+  }
+  getAllRooms(hotelId: string): Observable<IResponse<IRooms>> {
+    return this.http.get<IResponse<IRooms>>(
+      `${environment.baseURL}/rooms/${hotelId}`
+    );
   }
 
-  saveRoom(hotelId: string, room: IRoom): Observable<Room> {
-    const url = `${this.apiUrl}/${hotelId}`;
-    return this.http.post<Room>(url, room);
+  saveRoom(hotelId: string, room: INewRoom): Observable<IRooms> {
+    return this.http.post<IRooms>(
+      `${environment.baseURL}/rooms/${hotelId}`,
+      room
+    );
   }
 
-  updateRoom(roomId: string, room: Room): Observable<any> {
-    const url = `${this.apiUrl}/room/${roomId}`;
-    return this.http.patch<any>(url, room);
+  updateRoom(roomId: string, room: INewRoom): Observable<any> {
+    return this.http.patch<any>(
+      `${environment.baseURL}/rooms/room/${roomId}`,
+      room
+    );
   }
 
-  deleteRoom(roomId: string): Observable<any> {
-    const url = `${this.apiUrl}/room/${roomId}`;
-    return this.http.delete<any>(url);
+  deleteRoom(roomId: string): Observable<IRooms> {
+    return this.http.delete<IRooms>(
+      `${environment.baseURL}/rooms/room/${roomId}`
+    );
   }
 }

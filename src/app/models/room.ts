@@ -1,27 +1,43 @@
-export interface Room {
-      _id: string;
-      hotelId: string;
+// export interface Room {
+//   _id: string;
+//   hotelId: string;
 
-      hotelName?: string;
-      roomType: string;
-      bedType: string;
-      guestNumber: number;
-      price: number;
-      data?: Room[];
-      _v?: number
+//   hotelName?: string;
+//   roomType: string;
+//   bedType: string;
+//   guestNumber: number;
+//   price: number;
+//   data?: Room[];
+//   _v?: number;
+// }
 
-}
+// export interface IRoom {
+//   hotelId: {
+//     _id: string;
+//   };
+//   hotelName: string;
+//   roomType: string;
+//   bedType: string;
+//   guestNumber: number;
+//   price: number;
+// }
 
-
-export interface IRoom {
+export interface IRooms {
+  _id: string;
   hotelId: {
     _id: string;
+    hotelName: string;
   };
-  hotelName: string;
   roomType: string;
   bedType: string;
   guestNumber: number;
   price: number;
+  __v?: number;
+}
 
-
+export interface INewRoom {
+  roomType: string;
+  bedType: string;
+  guestNumber: number;
+  price: number;
 }

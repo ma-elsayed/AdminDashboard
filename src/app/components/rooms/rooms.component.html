@@ -1,171 +1,219 @@
-<div class="container">
+<div class="container-fluid">
   <div class="row pt-3">
     <div class="col-6">
-      <h4 style="color: rgb(21, 21, 163); font-size:xx-large;">RooMs</h4>
+      <h4 style="color: rgb(21, 21, 163); font-size: xx-large">Rooms</h4>
     </div>
     <div class="col-6 text-end">
-      <button class="btn btn-outline-primary m-2" (click)="openModel()">Add New</button>
+      <button class="btn btn-outline-primary m-2" (click)="openNewModal()">
+        Add New
+      </button>
     </div>
   </div>
-  @if (hotelList.length !== 0){
-  <div class="row  h-280">
-@for (room of hotelList; track $index) {
-    <div class="col-12"  >
-      <div class="card" >
+  @if (roomsList.length !== 0){
+  <div class="row h-280">
+    @for (room of roomsList; track $index) {
+    <div class="col-md-6 col-xl-4">
+      <div class="card">
         <div class="card-header">
           <div class="row">
-            <div class="col-4" style="color:  rgb(21, 21, 163); font-weight: 700; ">
-              {{room.hotelId}}
+            <div
+              class="col-6"
+              style="color: rgb(21, 21, 163); font-weight: 700"
+            >
+              Room num: {{ room._id }}
             </div>
-            <div class="col-8 text-end">
-              <p>{{room.hotelName}}</p>
+            <div class="col-6 text-end">
+              <p>{{ room.hotelId.hotelName }}</p>
             </div>
           </div>
         </div>
 
         <div class="card-body">
-          {{room.roomType}}
+          <p>RoomType: {{ room.roomType }}</p>
+          <p>Number of guests: {{ room.guestNumber }}</p>
+          <p>Room Price: {{ room.price }}</p>
+          <p>Bed Type: {{ room.bedType }}</p>
         </div>
-
-        <div class="card-body">
-          <p>{{room.guestNumber}}</p>
-        </div>
-
-        <div class="card-body">
-          <p>{{room.price}}</p>
-        </div>
-
-        <div class="card-body">
-          <p>{{room.bedType}}</p>
-        </div>
-
-
 
         <div class="card-footer">
           <div class="row">
-            <div class="col-6 text-end">
-              <button class="btn btn-sm btn-primary p-2 m-1" (click)="onEdit(room)">Edit</button>
-              <button class="btn btn-sm btn-danger p-2 m-1" (click)="onDelete(room)">Delete</button>
+            <div class="text-end">
+              <button
+                class="btn btn-sm btn-primary p-2 m-1"
+                (click)="onEdit(room)"
+              >
+                Edit
+              </button>
+              <button
+                class="btn btn-sm btn-danger p-2 m-1"
+                (click)="onDelete(room)"
+              >
+                Delete
+              </button>
             </div>
           </div>
         </div>
       </div>
     </div>
-  }
-
-
+    }
   </div>
   }@else {
-    <div class="row">
-      <div class="col-12 p-4 text-center">
-        <p>No Record Found. Create New Record</p>
-      </div>
+  <div class="row">
+    <div class="col-12 p-4 text-center">
+      <p>No Record Found. Create New Record</p>
     </div>
+  </div>
   }
 
-  <div class="modal" id="myModal" #myModal>
+  <!-- Creating a new room -->
+  <div class="modal" id="newRoomModal" #myModal>
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
           <h4 class="modal-title">Create New room</h4>
-          <button type="button" class="btn-close" (click)="closeModel()"></button>
+          <button
+            type="button"
+            class="btn-close"
+            (click)="closeNewModal()"
+          ></button>
         </div>
         <div class="modal-body">
           <div class="row">
             <div class="col-4">
-              <label for="">hotelName</label>
-              <input type="text" [(ngModel)]="newRoom.hotelName" class="form-control" placeholder="hotelName">
+              <label for="">Hotel ID</label>
+
+              <input
+                type="text"
+                class="form-control"
+                [(ngModel)]="hotelId"
+                placeholder="Hotel ID"
+              />
             </div>
 
             <div class="col-4">
-              <label for="">guestNumber</label>
-              <input type="text" [(ngModel)]="newRoom.guestNumber" class="form-control" placeholder="hotelName">
+              <label for="">Guest Number</label>
+              <input
+                type="text"
+                [(ngModel)]="newRoom.guestNumber"
+                class="form-control"
+                placeholder="Number of Guests"
+              />
             </div>
 
             <div class="col-4">
-              <label for="">bedType</label>
-              <input type="text" [(ngModel)]="newRoom.bedType" class="form-control" placeholder="hotelName">
+              <label for="">Bed Type</label>
+              <select [(ngModel)]="newRoom.bedType">
+                <option>Single Bed</option>
+                <option>Double Beds</option>
+              </select>
             </div>
 
             <div class="col-4">
-              <label for="">price</label>
-              <input type="text" [(ngModel)]="newRoom.price" class="form-control" placeholder="hotelName">
+              <label for="">Price</label>
+              <input
+                type="text"
+                [(ngModel)]="newRoom.price"
+                class="form-control"
+                placeholder="hotelName"
+              />
             </div>
 
             <div class="col-4">
-              <label for="">roomType</label>
-              <input type="text" [(ngModel)]="newRoom.roomType" class="form-control" placeholder="hotelName">
+              <label for="">Room Type</label>
+              <select [(ngModel)]="newRoom.roomType">
+                <option>Single Room</option>
+                <option>Double Room</option>
+                <option>Triple Room</option>
+              </select>
             </div>
-
-
-
           </div>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-danger" (click)="closeModel()">Close</button>
-
-          @if (!retrievedRoom?._id) {
-            <button type="button" class="btn btn-primary" (click)="saveRoom()">Save Hotel</button>
-          } @else {
-            <button type="button" class="btn btn-success" (click)="updateRoom(retrievedRoom)">Update Hotel</button>
-          }
+          <button
+            type="button"
+            class="btn btn-danger"
+            (click)="closeNewModal()"
+          >
+            Close
+          </button>
+          <button type="button" class="btn btn-primary" (click)="saveRoom()">
+            Save Hotel
+          </button>
         </div>
       </div>
     </div>
   </div>
 
-
-  <div class="modal" id="myModal" #myModal>
+  <!-- Updating rooms -->
+  <div class="modal" id="updateRoomModal" #updateRoomModal>
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h4 class="modal-title">Create New room</h4>
-          <button type="button" class="btn-close" (click)="closeModel()"></button>
+          <h4 class="modal-title">Update Room</h4>
+          <button
+            type="button"
+            class="btn-close"
+            (click)="closeUpdateModal()"
+          ></button>
         </div>
         <div class="modal-body">
-          <div class="row">
-            <div class="col-4">
-              <label for="">hotelName</label>
-              <input type="text" [(ngModel)]="editingRoom.hotelName" class="form-control" placeholder="hotelName">
+          <div class="row flex-column gy-3">
+            <div class="col">
+              <label for="">Room Type</label>
+              <select class="form-control" [(ngModel)]="editingRoom.roomType">
+                <option>Single Room</option>
+                <option>Double Room</option>
+                <option>Triple Room</option>
+              </select>
             </div>
 
-            <div class="col-4">
-              <label for="">guestNumber</label>
-              <input type="text" [(ngModel)]="editingRoom.guestNumber" class="form-control" placeholder="hotelName">
+            <div class="col">
+              <label for="">Bed Type</label>
+              <select class="form-control" [(ngModel)]="editingRoom.bedType">
+                <option>Single Bed</option>
+                <option>Double Beds</option>
+              </select>
             </div>
 
-            <div class="col-4">
-              <label for="">bedType</label>
-              <input type="text" [(ngModel)]="editingRoom.bedType" class="form-control" placeholder="hotelName">
+            <div class="col">
+              <label for="">Price</label>
+              <input
+                type="text"
+                [(ngModel)]="editingRoom.price"
+                class="form-control"
+                placeholder="hotelName"
+              />
             </div>
 
-            <div class="col-4">
-              <label for="">price</label>
-              <input type="text" [(ngModel)]="editingRoom.price" class="form-control" placeholder="hotelName">
+            <div class="col">
+              <label for="">Guest Number</label>
+              <input
+                type="text"
+                [(ngModel)]="editingRoom.guestNumber"
+                class="form-control"
+                placeholder="hotelName"
+              />
             </div>
-
-            <div class="col-4">
-              <label for="">roomType</label>
-              <input type="text" [(ngModel)]="editingRoom.roomType" class="form-control" placeholder="hotelName">
-            </div>
-
-
-
           </div>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-danger" (click)="closeModel()">Close</button>
+          <button
+            type="button"
+            class="btn btn-danger"
+            (click)="closeUpdateModal()"
+          >
+            Close
+          </button>
 
-          @if (!retrievedRoom?._id) {
-            <button type="button" class="btn btn-primary" (click)="saveRoom()">Save Hotel</button>
-          } @else {
-            <button type="button" class="btn btn-success" (click)="updateRoom(retrievedRoom)">Update Hotel</button>
-          }
+          <button
+            type="button"
+            class="btn btn-success"
+            (click)="updateRoom(editingRoom)"
+          >
+            Update Hotel
+          </button>
         </div>
       </div>
     </div>
   </div>
-
-
-
 </div>
