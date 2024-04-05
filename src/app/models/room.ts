@@ -33,6 +33,8 @@ export interface IRooms {
   guestNumber: number;
   price: number;
   __v?: number;
+  checkInDates?: string[];
+  checkOutDates?: string[];
 }
 
 export interface INewRoom {

@@ -1,3 +1,4 @@
+import { DOCUMENT } from '@angular/common';
 import { inject } from '@angular/core';
 import { CanActivateFn, Router } from '@angular/router';
 

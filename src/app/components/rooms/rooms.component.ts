@@ -2,7 +2,7 @@ import { INewRoom, IRooms } from './../../models/room';
 import { Component, OnInit } from '@angular/core';
 // import { Room } from '../../models/room';
 import { RoomService } from '../../services/room.service';
-import { RouterOutlet } from '@angular/router';
+import { ActivatedRoute, RouterOutlet } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
@@ -21,14 +21,33 @@ export class RoomsComponent implements OnInit {
   roomsList: IRooms[] = [];
   newRoom: INewRoom = {} as INewRoom;
   editingRoom: INewRoom = {} as INewRoom;
-  constructor(private roomService: RoomService, public router: Router) {}
+  incomingHotelId: any;
+  constructor(
+    private roomService: RoomService,
+    public router: Router,
+    private route: ActivatedRoute
+  ) {}
 
   ngOnInit() {
-    this.loadRooms();
+    const hotelId = this.route.snapshot.params['id'];
+    if (hotelId) {
+      this.hotelId = hotelId;
+      this.loadRoomsByHotelId(hotelId);
+    } else {
+      this.loadRooms();
+    }
+  }
+
+  loadRoomsByHotelId(hotelId: string) {
+    this.roomService.getAllRoomsById(hotelId).subscribe({
+      next: (response) => {
+        this.roomsList = response.data;
+      },
+    });
   }
 
   loadRooms() {
-    this.roomService.getAllRoomsNoId().subscribe({
+    this.roomService.getAllRooms().subscribe({
       next: (response) => {
         this.roomsList = response.data;
       },
@@ -109,8 +128,7 @@ export class RoomsComponent implements OnInit {
   saveRoom() {
     this.roomService.saveRoom(this.hotelId, this.newRoom).subscribe({
       next: (data) => {
-        this.loadRooms();
-        // this.roomsList.push(data);
+        this.loadRoomsByHotelId(this.hotelId);
       },
       error: (error) => {
         console.error('Error saving hotel:', error);

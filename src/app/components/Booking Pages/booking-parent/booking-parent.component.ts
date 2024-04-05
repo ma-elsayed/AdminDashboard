@@ -18,13 +18,11 @@ export class BookingParentComponent implements OnInit, OnDestroy {
   constructor(private BookingService: BookingServiceService) {}
 
   ngOnInit(): void {
-    this.bookingsRequest = this.BookingService.getBookings().subscribe(
-      (bookings) => {
+    this.bookingsRequest = this.BookingService.getBookings().subscribe({
+      next: (bookings) => {
         this.bookings = bookings.data;
-        console.log(this.bookings);
-      }
-    );
-    // console.log(this.bookings);
+      },
+    });
   }
   ngOnDestroy(): void {
     this.bookingsRequest.unsubscribe();

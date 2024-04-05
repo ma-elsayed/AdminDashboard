@@ -11,10 +11,10 @@ import { environment } from '../../environments/environment.development';
 export class RoomService {
   constructor(private http: HttpClient) {}
 
-  getAllRoomsNoId(): Observable<IResponse<IRooms>> {
+  getAllRooms(): Observable<IResponse<IRooms>> {
     return this.http.get<IResponse<IRooms>>(`${environment.baseURL}/rooms`);
   }
-  getAllRooms(hotelId: string): Observable<IResponse<IRooms>> {
+  getAllRoomsById(hotelId: string): Observable<IResponse<IRooms>> {
     return this.http.get<IResponse<IRooms>>(
       `${environment.baseURL}/rooms/${hotelId}`
     );

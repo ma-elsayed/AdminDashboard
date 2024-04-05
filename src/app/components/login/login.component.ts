@@ -28,16 +28,14 @@ export class LoginComponent {
   submit(event: Event): void {
     event.preventDefault();
     const adminLogin = { userName: this.userName, password: this.password };
-    console.log(adminLogin);
     this.AdminService.adminLogin(adminLogin).subscribe({
       next: (res: any) => {
-        console.log(res);
         localStorage.setItem('token', res.token);
         localStorage.setItem('username', res.username);
         this.router.navigate(['']);
       },
       error: (error) => {
-        console.error('Login failed', error);
+        console.log('Login failed', error);
         alert('Login failed');
       },
     });

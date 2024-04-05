@@ -16,11 +16,12 @@ export const routes: Routes = [
   {
     path: '',
     component: DashboardComponent,
-    canActivate: [adminAuthGuard],
+    canActivateChild: [adminAuthGuard],
     children: [
       { path: '', component: HomeComponent },
       { path: 'hotels', component: HotelsComponent },
       { path: 'rooms', component: RoomsComponent },
+      { path: 'rooms/:id', component: RoomsComponent },
       {
         path: 'users',
         component: UsersParentComponent,
