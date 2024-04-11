@@ -5,6 +5,7 @@ import { routes } from './app.routes';
 import { provideClientHydration } from '@angular/platform-browser';
 import { provideHttpClient, withFetch } from '@angular/common/http';
 import { UsersService } from './services/users.service';
+import { Chart } from 'chart.js';
 
 export const appConfig: ApplicationConfig = {
   providers: [

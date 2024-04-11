@@ -37,13 +37,6 @@
           >
             {{ user?.active ? "Deactivate" : "Activate" }}
           </span>
-          <!-- <button
-            type="button"
-            class="btn btn-primary btn-lg"
-            (click)="user && toggleUserActive(user)"
-          >
-            click me
-          </button> -->
         </div>
       </div>
     </div>
@@ -56,10 +49,7 @@
           </caption>
           <thead class="table-light">
             <tr class="table-active">
-              <th scope="col" class="align-middle">Booking ID</th>
-              <th scope="col" class="align-middle">
-                <p class="m-0 ps-2 text-start">User</p>
-              </th>
+              <th scope="col" class="align-middle">#</th>
               <th scope="col" class="align-middle">Hotel Name</th>
               <th scope="col" class="align-middle">Room Type</th>
               <th scope="col" class="align-middle">Guests</th>
@@ -72,11 +62,6 @@
             @for(booking of bookingsPerUser;track $index){
             <tr>
               <td scope="row" class="align-middle">{{ $index + 1 }}</td>
-              <td scope="row" class="align-middle">
-                <p class="d-flex justify-content-start m-0 ps-2">
-                  {{ booking.user.userName || booking.user.email }}
-                </p>
-              </td>
               <td scope="row" class="align-middle">
                 {{ booking.room[0].hotelId.hotelName }}
               </td>
@@ -91,10 +76,10 @@
                 {{ booking.guests }}
               </td>
               <td scope="row" class="align-middle">
-                {{ booking.checkIn }}
+                {{ booking.checkIn | date }}
               </td>
               <td scope="row" class="align-middle">
-                {{ booking.checkOut }}
+                {{ booking.checkOut | date }}
               </td>
               <td scope="row" class="align-middle">
                 {{ booking.totalPrice | currency : "USD" : "symbol" : ".0" }}

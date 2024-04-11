@@ -61,11 +61,7 @@ export class UsersParentComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    // const adminToken =
-    //   'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoidGVzdHJvbGUiLCJpZCI6IjY1ZjkyNzk2NzdkYzM5MzEzYmVhMGY1MyIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTcxMDkzNDI0OSwiZXhwIjoxNzEwOTQ4NjQ5fQ.Tq7dv4WattsRm_L42PG9M-RjplU9eby2gCmbVPC2yro';
-    // this.UserService.setAdminToken(adminToken);
     this.usersRequest = this.UserService.getUsers().subscribe((users) => {
-      console.log(users);
       this.users = users.data;
       this.filteredUsers = this.users;
     });

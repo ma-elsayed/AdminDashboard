@@ -43,7 +43,6 @@ export class UserDetailsComponent implements OnInit {
 
   ngOnInit(): void {
     this.activatedRoute.paramMap.subscribe((params) => {
-      console.log(params.get('id'));
       this.userId = params.get('id');
     });
     this.UserService.getUser(this.userId).subscribe((user) => {
@@ -56,7 +55,6 @@ export class UserDetailsComponent implements OnInit {
       } else {
         this.userHasBookings = false;
       }
-      console.log(this.bookingsPerUser);
     });
   }
 }

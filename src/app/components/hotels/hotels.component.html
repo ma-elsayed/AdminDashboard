@@ -1,145 +1,186 @@
-<div class="container">
+<div class="container-fluid">
   <div class="row pt-3">
     <div class="col-6">
-      <h4 style="color: rgb(21, 21, 163); font-size:xx-large;">Hotels</h4>
+      <h4 style="color: rgb(21, 21, 163); font-size: xx-large">Hotels</h4>
     </div>
     <div class="col-6 text-end">
-      <button class="btn btn-outline-primary m-2" (click)="openModel()">Add New</button>
+      <button class="btn btn-outline-primary m-2" (click)="openModel()">
+        Add New
+      </button>
     </div>
   </div>
 
   @if (hotelList.length !== 0) {
-    <div class="row  h-280">
-      @for (item of hotelList; track $index) {
-      <div class="col-12  ">
-        <div class="card">
-          <div class="card-header" role="button" (click)="goToRooms(item)">
-            <div class="row">
-              <div class="col-4" style="color:  rgb(21, 21, 163); font-weight: 700; ">
-                {{item.hotelName}}
-              </div>
-              <div class="col-8 text-end">
-                <p>  {{item.hotelCity}}</p>
-              </div>
+  <div class="row h-280">
+    @for (item of hotelList; track $index) {
+    <div class="col-md-6 col-xl-4">
+      <div class="card" style="min-height: 689px; max-height: 689px">
+        <img
+          [src]="item.hotelMainImage"
+          class="img-fluid img-thumbnail card-img-top mb-1"
+          style="height: 200px"
+        />
+        <div class="card-header" role="button" (click)="goToRooms(item)">
+          <div class="row">
+            <div
+              class="col-8"
+              style="color: rgb(21, 21, 163); font-weight: 700"
+            >
+              {{ item.hotelName }}
+            </div>
+            <div class="col-4 text-end">
+              <p>{{ item.hotelCity }}</p>
             </div>
           </div>
+        </div>
+        <div class="card-body">
+          <p
+            class="overflow-y-auto"
+            style="height: 250px; scrollbar-width: none"
+          >
+            {{ item.hotelDescription }}
+          </p>
 
-          <div class="card-body">
-            {{item.hotelDescription}}
+          <p>Address: {{ item.hotelAddress }}</p>
+        </div>
 
-
-          </div>
-
-          <div class="card-body">
-
-            <p> {{item.hotelSubDescription}} </p>
-          </div>
-
-          <p> {{item.hotelMainImage}} </p>
-          <div class="card-body">
-
-
-          </div>
-          <div class="card-body">
-            <p> {{item.hotelAddress}}</p>
-
-          </div>
-
-          <div class="card-body">
-            <p>{{item.distanceFromCenter}} </p>
-
-          </div>
-
-          <div class="card-body">
-            <p>  {{item.hotelType}}</p>
-
-          </div>
-
-          <div class="card-footer ">
-            <div class="row">
-              <div class="col-6 text-start">
-               <small>{{item.hotelName}}</small>
-              </div>
-              <div class="col-6 text-end">
-                <button class="btn btn-sm btn-primary p-2 m-1" (click)="onEdit(item)">Edit</button>
-                <button class="btn btn-sm btn-danger p-2 m-1" (click)="onDelete(item)">Delet</button>
-              </div>
+        <div class="card-footer">
+          <div class="row">
+            <div class="text-end">
+              <button
+                class="btn btn-sm btn-primary p-2 m-1"
+                (click)="onEdit(item)"
+              >
+                Edit
+              </button>
+              <button
+                class="btn btn-sm btn-danger p-2 m-1"
+                (click)="onDelete(item)"
+              >
+                Delete
+              </button>
             </div>
-
           </div>
         </div>
       </div>
-      }
     </div>
-    } @else {
-      <div class="row">
-        <div class="col-12 p-4 text-center">
-          <p>No Record Found. Create New Record</p>
-        </div>
-      </div>
     }
+  </div>
+  } @else {
+  <div class="row">
+    <div class="col-12 p-4 text-center">
+      <p>No Record Found. Create New Record</p>
+    </div>
+  </div>
+  }
   <div class="modal" id="myModal" #myModal>
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
           <h4 class="modal-title">Create New HOTEL</h4>
-          <button type="button" class="btn-close" (click)="closeModel()"></button>
+          <button
+            type="button"
+            class="btn-close"
+            (click)="closeModel()"
+          ></button>
         </div>
         <div class="modal-body">
           <div class="row">
             <div class="col-4">
               <label for="">hotelName</label>
-              <input type="text" [(ngModel)]="hotelObj.hotelName" class="form-control" placeholder="hotelName">
+              <input
+                type="text"
+                [(ngModel)]="hotelObj.hotelName"
+                class="form-control"
+                placeholder="hotelName"
+              />
             </div>
 
             <div class="col-4">
               <label for="">hotelDescription</label>
-              <input type="text" [(ngModel)]="hotelObj.hotelDescription" class="form-control" placeholder="hotelDescription">
+              <input
+                type="text"
+                [(ngModel)]="hotelObj.hotelDescription"
+                class="form-control"
+                placeholder="hotelDescription"
+              />
             </div>
 
             <div class="col-4">
               <label for="">hotelSubDescription</label>
-              <input type="text" [(ngModel)]="hotelObj.hotelSubDescription" class="form-control" placeholder="hotelSubDescription">
+              <input
+                type="text"
+                [(ngModel)]="hotelObj.hotelSubDescription"
+                class="form-control"
+                placeholder="hotelSubDescription"
+              />
             </div>
 
             <div class="col-4">
               <label for="">hotelMainImage</label>
-              <input type="text" [(ngModel)]="hotelObj.hotelMainImage" class="form-control" placeholder="hotelMainImage">
+              <input
+                type="text"
+                [(ngModel)]="hotelObj.hotelMainImage"
+                class="form-control"
+                placeholder="hotelMainImage"
+              />
             </div>
 
             <div class="col-4">
               <label for="">hotelCity</label>
-              <input type="text" [(ngModel)]="hotelObj.hotelCity" class="form-control" placeholder="hotelCity">
+              <input
+                type="text"
+                [(ngModel)]="hotelObj.hotelCity"
+                class="form-control"
+                placeholder="hotelCity"
+              />
             </div>
 
             <div class="col-4">
               <label for="">hotelAddress</label>
-              <input type="text" [(ngModel)]="hotelObj.hotelAddress" class="form-control" placeholder="hotelAddress">
+              <input
+                type="text"
+                [(ngModel)]="hotelObj.hotelAddress"
+                class="form-control"
+                placeholder="hotelAddress"
+              />
             </div>
 
             <div class="col-4">
               <label for="">distanceFromCenter</label>
-              <input type="text" [(ngModel)]="hotelObj.distanceFromCenter" class="form-control" placeholder="distanceFromCenter">
+              <input
+                type="text"
+                [(ngModel)]="hotelObj.distanceFromCenter"
+                class="form-control"
+                placeholder="distanceFromCenter"
+              />
             </div>
 
             <div class="col-4">
               <label for="">hotelType</label>
-              <input type="text" [(ngModel)]="hotelObj.hotelType" class="form-control" placeholder="hotelType">
+              <input
+                type="text"
+                [(ngModel)]="hotelObj.hotelType"
+                class="form-control"
+                placeholder="hotelType"
+              />
             </div>
-
-
-
           </div>
-
         </div>
 
         <div class="modal-footer">
-          <button type="button" class="btn btn-danger" (click)="closeModel()">Close</button>
+          <button type="button" class="btn btn-danger" (click)="closeModel()">
+            Close
+          </button>
 
           @if (!hotelObj._id) {
-            <button type="button" class="btn btn-primary" (click)="saveHotel()">Save Hotel</button>
+          <button type="button" class="btn btn-primary" (click)="saveHotel()">
+            Save Hotel
+          </button>
           } @else {
-            <button type="button" class="btn btn-success" (click)="updateHotel()">Update Hotel</button>
+          <button type="button" class="btn btn-success" (click)="updateHotel()">
+            Update Hotel
+          </button>
           }
         </div>
       </div>
