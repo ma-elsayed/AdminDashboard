@@ -1,9 +1,14 @@
 <div class="container-fluid">
   <div class="row pt-3">
-    <div class="col-6">
+    <div class="col-4">
       <h4 style="color: rgb(21, 21, 163); font-size: xx-large">Hotels</h4>
     </div>
-    <div class="col-6 text-end">
+    <div class="col-4 text-center">
+      <button class="btn btn-outline-success m-2" (click)="changeHotels()">
+        @if(this.state == true) { Approved Hotels } @else { Requested Hotels }
+      </button>
+    </div>
+    <div class="col-4 text-end">
       <button class="btn btn-outline-primary m-2" (click)="openModel()">
         Add New
       </button>
@@ -11,8 +16,8 @@
   </div>
 
   @if (hotelList.length !== 0) {
-  <div class="row h-280">
-    @for (item of hotelList; track $index) {
+  <div id="approvedHotels" class="row h-280">
+    @for (item of showingList; track $index) {
     <div class="col-md-6 col-xl-4">
       <div class="card" style="min-height: 689px; max-height: 689px">
         <img
@@ -164,6 +169,18 @@
                 class="form-control"
                 placeholder="hotelType"
               />
+            </div>
+            <div class="col-4">
+              <label for="">approved</label>
+              <select
+                type="text"
+                [(ngModel)]="hotelObj.approved"
+                class="form-control"
+                placeholder="Approved"
+              >
+                <option>true</option>
+                <option>false</option>
+              </select>
             </div>
           </div>
         </div>

@@ -1,9 +1,14 @@
 <div class="container-fluid">
   <div class="row pt-3">
-    <div class="col-6">
+    <div class="col-4">
       <h4 style="color: rgb(21, 21, 163); font-size: xx-large">Rooms</h4>
     </div>
-    <div class="col-6 text-end">
+    <div class="col-4 text-center">
+      <button class="btn btn-outline-success m-2" (click)="changeRooms()">
+        @if(this.state == true) { Approved Rooms } @else { Requested Rooms }
+      </button>
+    </div>
+    <div class="col-4 text-end">
       <button class="btn btn-outline-primary m-2" (click)="openNewModal()">
         Add New
       </button>
@@ -11,7 +16,7 @@
   </div>
   @if (roomsList.length !== 0){
   <div class="row h-280">
-    @for (room of roomsList; track $index) {
+    @for (room of showingList; track $index) {
     <div class="col-md-6 col-xl-4">
       <div class="card">
         <div class="card-header">
@@ -33,6 +38,7 @@
           <p>Number of guests: {{ room.guestNumber }}</p>
           <p>Room Price: {{ room.price }}</p>
           <p>Bed Type: {{ room.bedType }}</p>
+          <p>Approved: {{ room.approved }}</p>
         </div>
 
         <div class="card-footer">
@@ -193,6 +199,18 @@
                 class="form-control"
                 placeholder="Guest Number"
               />
+            </div>
+            <div class="col">
+              <label for="">Approved</label>
+              <select
+                type="text"
+                [(ngModel)]="editingRoom.approved"
+                class="form-control"
+                placeholder="Guest Number"
+              >
+                <option>true</option>
+                <option>false</option>
+              </select>
             </div>
           </div>
         </div>

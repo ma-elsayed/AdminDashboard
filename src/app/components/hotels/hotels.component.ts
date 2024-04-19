@@ -17,6 +17,9 @@ export class HotelsComponent implements OnInit {
   @ViewChild('myModal') model!: ElementRef;
   hotelObj: Hotel = new Hotel();
   hotelList: Hotel[] = [] as Hotel[];
+  requestedHotelsList: Hotel[] = [] as Hotel[];
+  showingList: Hotel[] = [];
+  state: boolean = true;
 
   constructor(private hotelService: HotelService, public router: Router) {}
 
@@ -27,8 +30,11 @@ export class HotelsComponent implements OnInit {
   loadHotels() {
     this.hotelService.getHotels().subscribe(
       (data) => {
-        this.hotelList = data.data;
-        // console.log(this.hotelList)
+        this.hotelList = data.data.filter((hotel) => hotel.approved === true);
+        this.requestedHotelsList = data.data.filter(
+          (hotel) => hotel.approved === false
+        );
+        this.showingList = this.hotelList;
       },
       (error) => {
         console.error('Error loading hotels:', error);
@@ -65,6 +71,9 @@ export class HotelsComponent implements OnInit {
           this.hotelList = this.hotelList.filter(
             (hotel) => hotel._id == item._id
           );
+          this.requestedHotelsList = this.requestedHotelsList.filter(
+            (hotel) => hotel._id == item._id
+          );
         },
         (error) => {
           console.error('Error deleting hotel:', error);
@@ -75,6 +84,7 @@ export class HotelsComponent implements OnInit {
 
   onEdit(item: Hotel) {
     this.hotelObj = item;
+    console.log(this.hotelObj);
     this.openModel();
   }
 
@@ -86,7 +96,9 @@ export class HotelsComponent implements OnInit {
         );
         if (index !== -1) {
           this.hotelList[index] = this.hotelObj;
+          this.requestedHotelsList[index] = this.hotelObj;
         }
+        this.loadHotels();
       },
       (error) => {
         console.error('Error updating hotel:', error);
@@ -96,15 +108,25 @@ export class HotelsComponent implements OnInit {
   }
 
   saveHotel() {
-    // console.log(this.hotelObj)
     this.hotelService.addHotel(this.hotelObj).subscribe(
       (data) => {
         this.hotelList.push(data);
+        this.requestedHotelsList.push(data);
       },
       (error) => {
         console.error('Error saving hotel:', error);
       }
     );
     this.closeModel();
+  }
+
+  changeHotels() {
+    this.state = !this.state;
+    console.log(this.state);
+    if (this.state === true) {
+      this.showingList = this.hotelList;
+    } else {
+      this.showingList = this.requestedHotelsList;
+    }
   }
 }
