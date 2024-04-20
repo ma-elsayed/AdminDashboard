@@ -37,7 +37,7 @@ export class HotelsComponent implements OnInit {
         this.showingList = this.hotelList;
       },
       (error) => {
-        console.error('Error loading hotels:', error);
+        console.log('Error loading hotels:', error);
       }
     );
   }
@@ -60,7 +60,6 @@ export class HotelsComponent implements OnInit {
   goToRooms(rooms: Hotel) {
     console.log(rooms);
     this.router.navigate(['rooms/' + rooms._id]);
-    // this.router.navigate(['rooms']);
   }
 
   onDelete(item: Hotel) {
@@ -122,11 +121,27 @@ export class HotelsComponent implements OnInit {
 
   changeHotels() {
     this.state = !this.state;
-    console.log(this.state);
     if (this.state === true) {
       this.showingList = this.hotelList;
     } else {
       this.showingList = this.requestedHotelsList;
     }
+  }
+  approveHotel(item: Hotel) {
+    item.approved = true;
+    this.hotelService.updateHotel(item).subscribe(
+      () => {
+        const index = this.hotelList.findIndex((m) => m._id === item._id);
+        if (index !== -1) {
+          this.hotelList[index] = item;
+          this.requestedHotelsList[index] = item;
+        }
+        this.state = !this.state;
+        this.loadHotels();
+      },
+      (error) => {
+        console.error('Error updating hotel:', error);
+      }
+    );
   }
 }

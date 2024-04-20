@@ -52,6 +52,14 @@
         <div class="card-footer">
           <div class="row">
             <div class="text-end">
+              @if (item.approved === false) {
+              <button
+                class="btn btn-sm btn-success p-2 m-1"
+                (click)="approveHotel(item)"
+              >
+                Approve
+              </button>
+              }
               <button
                 class="btn btn-sm btn-primary p-2 m-1"
                 (click)="onEdit(item)"
