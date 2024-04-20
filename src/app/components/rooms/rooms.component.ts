@@ -19,8 +19,11 @@ export class RoomsComponent implements OnInit {
   hotelId: string = '';
   roomId: string = '';
   roomsList: IRooms[] = [];
+  requestedRoomsList: IRooms[] = [];
+  showingList: IRooms[] = [];
   newRoom: INewRoom = {} as INewRoom;
   editingRoom: INewRoom = {} as INewRoom;
+  state: boolean = true;
   incomingHotelId: any;
   constructor(
     private roomService: RoomService,
@@ -49,7 +52,11 @@ export class RoomsComponent implements OnInit {
   loadRooms() {
     this.roomService.getAllRooms().subscribe({
       next: (response) => {
-        this.roomsList = response.data;
+        this.roomsList = response.data.filter((room) => room.approved === true);
+        this.requestedRoomsList = response.data.filter(
+          (room) => room.approved === false
+        );
+        this.showingList = this.roomsList;
       },
       error: (error) => {
         console.error('Error loading hotels:', error);
@@ -135,5 +142,13 @@ export class RoomsComponent implements OnInit {
       },
     });
     this.closeNewModal();
+  }
+  changeRooms() {
+    this.state = !this.state;
+    if (this.state === true) {
+      this.showingList = this.roomsList;
+    } else {
+      this.showingList = this.requestedRoomsList;
+    }
   }
 }

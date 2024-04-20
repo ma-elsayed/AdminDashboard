@@ -35,6 +35,7 @@ export interface IRooms {
   __v?: number;
   checkInDates?: string[];
   checkOutDates?: string[];
+  approved?: boolean;
 }
 
 export interface INewRoom {
@@ -42,4 +43,5 @@ export interface INewRoom {
   bedType: string;
   guestNumber: number;
   price: number;
+  approved?: boolean;
 }

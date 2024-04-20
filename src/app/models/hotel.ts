@@ -5,11 +5,12 @@ export class Hotel {
   hotelSubDescription: string;
   hotelMainImage: string;
   hotelCity: string;
-  hotelAddress:string;
-  distanceFromCenter:number;
-  hotelType:string
+  hotelAddress: string;
+  distanceFromCenter: number;
+  hotelType: string;
   // message :string;
   data: Hotel[];
+  approved?: boolean;
 
   constructor() {
     this._id = '';
@@ -18,10 +19,11 @@ export class Hotel {
     this.hotelSubDescription = '';
     this.hotelMainImage = '';
     this.hotelCity = '';
-    this.hotelAddress='';
-    this.distanceFromCenter=1;
-    this.hotelType=''
+    this.hotelAddress = '';
+    this.distanceFromCenter = 1;
+    this.hotelType = '';
+    this.approved = false;
     // message :"";
-    this.data=[]
+    this.data = [];
   }
 }
