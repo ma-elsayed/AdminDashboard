@@ -30,6 +30,7 @@ export class HotelsComponent implements OnInit {
   loadHotels() {
     this.hotelService.getHotels().subscribe(
       (data) => {
+        console.log(data);
         this.hotelList = data.data.filter((hotel) => hotel.approved === true);
         this.requestedHotelsList = data.data.filter(
           (hotel) => hotel.approved === false

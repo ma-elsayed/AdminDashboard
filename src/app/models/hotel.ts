@@ -8,6 +8,7 @@ export class Hotel {
   hotelAddress: string;
   distanceFromCenter: number;
   hotelType: string;
+  hotelRating: number;
   // message :string;
   data: Hotel[];
   approved?: boolean;
@@ -23,6 +24,7 @@ export class Hotel {
     this.distanceFromCenter = 1;
     this.hotelType = '';
     this.approved = false;
+    this.hotelRating = 0;
     // message :"";
     this.data = [];
   }

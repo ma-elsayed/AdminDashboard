@@ -4,16 +4,15 @@ import { Observable } from 'rxjs';
 import { Hotel } from '../models/hotel';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class HotelService {
-
   private apiUrl = 'http://localhost:3090/hotels';
 
   constructor(private http: HttpClient) {}
 
   getHotels(): Observable<Hotel> {
-    return this.http.get<Hotel>(this.apiUrl);
+    return this.http.get<Hotel>(`${this.apiUrl}/getall`);
   }
 
   addHotel(hotel: Hotel): Observable<Hotel> {
